@@ -1,0 +1,32 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: resource-sb-app3-srvc
+spec:
+  selector:
+    app: resource--sb-app3-l
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: resource-sb-app3
+spec:
+  selector:
+      matchLabels:
+        app: resource--sb-app3-l
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: resource--sb-app3-l
+    spec:
+      containers:
+        - name: resource-sb-app3-c
+          image: gcr.io/invertible-tree-252704/resource-sb-app3:latest
+          ports:
+            - containerPort: 8080
