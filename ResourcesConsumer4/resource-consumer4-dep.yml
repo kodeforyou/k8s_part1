@@ -1,0 +1,32 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: resource-consumer
+spec:
+  selector:
+    app: resource-con-l
+  ports:
+  - protocol: TCP
+    port: 8081
+    targetPort: 8181
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: resource-consumer-app
+spec:
+  selector:
+      matchLabels:
+        app: resource-con-l
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: resource-con-l
+    spec:
+      containers:
+        - name: resource-consumer-c
+          image: gcr.io/swift-doodad-299002/resource-consumer4:1.0
+          ports:
+            - containerPort: 8181
