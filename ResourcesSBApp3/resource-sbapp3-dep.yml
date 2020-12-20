@@ -27,6 +27,6 @@ spec:
     spec:
       containers:
         - name: resource-sb-app3-c
-          image: gcr.io/invertible-tree-252704/resource-sb-app3:latest
+          image: gcr.io/swift-doodad-299002/resource-sb-app3:1.0
           ports:
             - containerPort: 8080

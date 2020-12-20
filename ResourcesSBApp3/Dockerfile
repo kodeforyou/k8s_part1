@@ -1,4 +1,4 @@
 FROM openjdk:8
-ADD ./ResourcesSBApp3.jar /ResourcesSBApp3.jar 
+ADD ./ResourcesSBApp3.war /ResourcesSBApp3.war 
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "ResourcesSBApp3.jar"]
+ENTRYPOINT ["java", "-jar", "ResourcesSBApp3.war"]

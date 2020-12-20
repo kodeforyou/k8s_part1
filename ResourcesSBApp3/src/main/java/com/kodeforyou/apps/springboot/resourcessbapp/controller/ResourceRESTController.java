@@ -1,5 +1,6 @@
 package com.kodeforyou.apps.springboot.resourcessbapp.controller;
 
+import java.net.InetAddress;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,11 +32,23 @@ public class ResourceRESTController {
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 	}
 
+	@GetMapping(path = "/getMyIP")
+    public String getMyIP() {
+    	String hostIP = null;
+    	try {
+    	   InetAddress IP=InetAddress.getLocalHost();
+    	   hostIP = IP.getHostAddress();
+    	}catch(Exception e) {
+    		hostIP = e.getMessage();
+    	}
+    	return hostIP;
+    }
 	@GetMapping(path = "/{rid}", produces = "application/json")
 	public ResourceDto get(@PathVariable("rid") int rid) {
 		ResourceDto resource = null;
-		resource = resourceService.get(rid);
 		
+		resource = resourceService.get(rid);
+		resource.setRole(resource.getRole()+", response from IP:"+getMyIP());
 		return resource;
 	}
 
