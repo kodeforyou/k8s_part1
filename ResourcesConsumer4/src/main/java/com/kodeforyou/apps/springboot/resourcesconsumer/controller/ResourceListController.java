@@ -2,6 +2,7 @@ package com.kodeforyou.apps.springboot.resourcesconsumer.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,5 +16,9 @@ public class ResourceListController {
 	@GetMapping
 	public String list() {
 		return  rc.list().toString();
+	}
+	@GetMapping(path = "/{rid}")
+	public String getResource(@PathVariable("rid") int rid) {
+		return  rc.get(rid).toString();
 	}
 }
